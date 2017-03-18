@@ -1,10 +1,8 @@
 <?php
+namespace piSwitchPortal\lib;
 
 
-namespace piSwitchMaster\lib;
-
-
-use piSwitchMaster\lib\controllers\index;
+use piSwitchPortal\lib\controllers\index;
 use Slim\App;
 
 class router {
