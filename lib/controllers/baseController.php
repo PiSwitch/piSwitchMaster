@@ -1,7 +1,5 @@
 <?php
-
-
-namespace piSwitchMaster\lib\controllers;
+namespace piSwitchPortal\lib\controllers;
 
 
 class baseController {

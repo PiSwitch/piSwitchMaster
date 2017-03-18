@@ -2,5 +2,5 @@
 
 require '../lib/includes/vendor/autoload.php';
 
-$bootstrap = new \piSwitchMaster\lib\bootstrap();
+$bootstrap = new \piSwitchPortal\lib\bootstrap();
 $bootstrap->run();
