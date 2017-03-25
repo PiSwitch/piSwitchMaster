@@ -1,0 +1,13 @@
+{
+  "name": "piswitch-portal",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "mysql": "^2.13.0",
+    "socket.io": "^1.7.3"
+  }
+}

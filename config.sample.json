@@ -1,0 +1,11 @@
+{
+    "hostname": "",
+    "port": 3000,
+    "mysqlSettings": {
+        "connectionLimit": 10,
+        "host": "example.org",
+        "user": "foo",
+        "password": "bar",
+        "database": "foo_bar"
+    }
+}
