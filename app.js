@@ -3,7 +3,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mysql = require('mysql');
-var pool = mysql.createPool(config.mysqlSettings);
+var pool = mysql.createPool(config.mysql);
 
 var webRoot = __dirname + '/www/';
 
