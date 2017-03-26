@@ -1,0 +1,14 @@
+{
+  "name": "piswitch-portal",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Christophe Gagnier <admin@cgagnier.ca>"
+  ],
+  "homepage": "https://github.com/PiSwitch/piSwitchMaster",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7"
+  }
+}

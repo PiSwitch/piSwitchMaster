@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    pre(id="messages")
+    form
+        input(id="form", autocomplete="off")
+        button Send
+
+    script(src="/socket.io/socket.io.js")
+
+block scripts
+    script.
+        $(function () {
+            var socket = io();
+            $('form').submit(function(){
+                socket.emit('chat message', $('#form').val());
+                $('#form').val('');
+                return false;
+            });
+            socket.on('chat message', function (message) {
+                $('#messages').append(message + '\n');
+            });
+        });
