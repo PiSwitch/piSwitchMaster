@@ -12,6 +12,18 @@ html
             div.container
                 div.navbar-header
                     a.navbar-brand(href="/") PiSwitch Portal
+                div.collapse.navbar-collapse(id="navbar")
+                    ul.nav.navbar-nav
+                        if(user)
+                            li
+                                a(href="/profile") #{user.email}
+                            li
+                                a(href="/logout") Logout
+                        else
+                            li
+                                a(href="/login") Login
+                            li
+                                a(href="/signup") Signup
         div.container
             block content
         script(src="/components/jquery/dist/jquery.min.js")

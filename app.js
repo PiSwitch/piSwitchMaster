@@ -31,6 +31,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(function (req, res, next) {
+    res.locals.user = req.user;
+    next();
+});
 
 
 app.get('/', function(req, res){
@@ -58,9 +62,7 @@ app.post('/signup', passport.authenticate('local-signup', {
 }));
 
 app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile', {
-        user : req.user
-    });
+    res.render('profile');
 });
 
 app.get('/logout', function(req, res){
