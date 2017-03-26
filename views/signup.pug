@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    if message.length > 0
+        div.alert.alert-danger #{message}
+
+    form.form-signin(action="/signup", method="post")
+        h2.form-signin-heading Sign up
+        input.form-control(type="text", name="email", placeholder="Email address")
+        input.form-control(type="password", name="password", placeholder="Password")
+        button.btn.btn-large.btn-primary.btn-block(type="submit") Sign up
+
+    span Already have an account?
+        a(href="/login") Login

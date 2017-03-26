@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    if message.length > 0
+        div.alert.alert-danger #{message}
+
+    form.form-signin(action="/login", method="post")
+        h2.form-signin-heading Log in
+        input.form-control(type="text", name="email", placeholder="Email address")
+        input.form-control(type="password", name="password", placeholder="Password")
+        div.checkbox
+            label
+                input(type="checkbox", value="remember-me")
+                = "Remember me"
+        button.btn.btn-large.btn-primary.btn-block(type="submit") Sign in
+
+    span Don't have an account?
+        a(href="/signup") Sign up
