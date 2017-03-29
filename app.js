@@ -10,6 +10,7 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 var http = require('http');
 var socketio = require('socket.io');
+var webSocket = require('./app/websocket/webSocket');
 var db = require('./app/lib/sqlPool');
 var user = require('./app/models/user');
 require('./app/config/passport')(passport);
@@ -111,15 +112,8 @@ app.use(function(err, req, res, next) {
 });
 
 var server = http.Server(app);
-io = socketio(server);
-
-io.on('connection', function(socket){
-    console.log('a user connected');
-
-    socket.on('chat message', function(msg){
-        io.emit('chat message', msg);
-    });
-});
+var io = socketio(server);
+var webSocketServer = webSocket(app, io);
 
 server.listen(config.port, config.hostname, function(){
     var hostname = config.hostname ? config.hostname : '*';
