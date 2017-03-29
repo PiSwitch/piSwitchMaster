@@ -22,8 +22,10 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'static')));
 
+// TODO: Save a random key in a file for those secret settings
+app.set('secretApiKey', 'thisissecret! :o');
 app.use(session({
-    secret: 'thisissecret! :o',
+    secret: 'thisisalsosecret! :o',
     resave: false,
     saveUninitialized: false
 }));
@@ -36,6 +38,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+// Routes
+var apiRoutes = require('./app/routes/apiRoutes');
+
+app.use('/api', apiRoutes(app));
 
 app.get('/', function(req, res){
     res.render('index')

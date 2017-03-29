@@ -9,10 +9,18 @@ function generateHash(password) {
 }
 
 exports.validatePassword = function(user, password) {
+    if(!user || !password) {
+        return false;
+    }
+
     return bcrypt.compareSync(password, user.password);
 };
 
 exports.findById = function (id, callback) {
+    if(!id) {
+        return callback('No id!');
+    }
+
     db.query('SELECT * FROM users WHERE id = ? LIMIT 1', [id], function (error, results) {
         if(results[0]) {
             return callback(error, results[0]);
@@ -22,6 +30,10 @@ exports.findById = function (id, callback) {
 };
 
 exports.findByEmail = function (email, callback) {
+    if(!email) {
+        return callback('No email!');
+    }
+
     db.query('SELECT * FROM users WHERE email = ? LIMIT 1', [email], function (error, results) {
         if(results[0]) {
             return callback(error, results[0]);
