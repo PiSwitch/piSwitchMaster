@@ -1,4 +1,5 @@
 var jwt = require('jsonwebtoken');
+var secrets = require('../lib/secret');
 
 module.exports = function (app, socketio) {
     socketio.on('connection', function(socket){
@@ -7,10 +8,11 @@ module.exports = function (app, socketio) {
         delete socketio.sockets.connected[socket.id];
 
         var options = {
-            secret: app.get('secretApiKey'),
+            secret: secrets.get('apiSecret'),
             timeout: 5000 // 5 seconds to send the authentication message
         };
 
+        // 5 seconds to send the authentication message
         var auth_timeout = setTimeout(function () {
             socket.emit('chat message', 'Not authorized');
             socket.disconnect('unauthorized');

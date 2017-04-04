@@ -14,6 +14,7 @@
     "express": "^4.15.2",
     "express-session": "^1.15.1",
     "isemail": "^2.2.1",
+    "jsonfile": "^2.4.0",
     "jsonwebtoken": "^7.3.0",
     "method-override": "^2.3.8",
     "morgan": "^1.8.1",

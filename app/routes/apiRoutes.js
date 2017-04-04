@@ -1,5 +1,6 @@
 var express = require('express');
 var jwt = require('jsonwebtoken');
+var secrets = require('../lib/secret');
 var userModel = require('../models/user');
 
 module.exports = function (app) {
@@ -22,7 +23,7 @@ module.exports = function (app) {
                 return res.json({ success: false, message: 'Authentication failed. Wrong password.'});
             }
 
-            var token = jwt.sign({id: user.id}, app.get('secretApiKey'), { expiresIn: '24h' });
+            var token = jwt.sign({id: user.id}, secrets.get('apiSecret'), { expiresIn: '24h' });
 
             res.json({
                 success: true,
@@ -42,7 +43,7 @@ module.exports = function (app) {
             });
         }
 
-        jwt.verify(token, app.get('secretApiKey'), function (err, data) {
+        jwt.verify(token, secrets.get('apiSecret'), function (err, data) {
             if (err) {
                 return res.json({ success: false, message: 'Failed to authenticate token.' });
             }

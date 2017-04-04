@@ -7,7 +7,8 @@ var flash    = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
-var session      = require('express-session');
+var secret = require('./app/lib/secret');
+var session = require('express-session');
 var http = require('http');
 var socketio = require('socket.io');
 var webSocket = require('./app/websocket/webSocket');
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 // TODO: Save a random key in a file for those secret settings
 app.set('secretApiKey', 'thisissecret! :o');
 app.use(session({
-    secret: 'thisisalsosecret! :o',
+    secret: secret.get('sessionSecret'),
     resave: false,
     saveUninitialized: false
 }));
