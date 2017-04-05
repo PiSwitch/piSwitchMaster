@@ -26,8 +26,9 @@ app.use(express.static(path.join(__dirname, 'static')));
 
 // TODO: Save a random key in a file for those secret settings
 app.set('secretApiKey', 'thisissecret! :o');
+
 app.use(session({
-    secret: secret.get('sessionSecret'),
+    secret: secret.get('sessionSecret').toString(),
     resave: false,
     saveUninitialized: false
 }));
@@ -42,59 +43,20 @@ app.use(function (req, res, next) {
 
 // Routes
 var apiRoutes = require('./app/routes/apiRoutes');
+var homeRoutes = require('./app/routes/homeRoutes');
+var authRoutes = require('./app/routes/authRoutes');
 
-app.use('/api', apiRoutes(app));
+app.use('/api', apiRoutes());
+app.use('/', homeRoutes());
+app.use('/auth/', authRoutes());
 
-app.get('/', function(req, res){
-    res.render('index')
-});
-
-app.get('/login', function(req, res){
-    res.render('login', { message: req.flash('loginMessage') })
-});
-
-app.post('/login', passport.authenticate('local-login', {
-    successRedirect : '/profile', // redirect to the secure profile section
-    failureRedirect : '/login', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
-}));
-
-app.get('/signup', function(req, res) {
-    res.render('signup', { message: req.flash('signupMessage') });
-});
-
-app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : '/profile', // redirect to the secure profile section
-    failureRedirect : '/signup', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
-}));
-
-app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile');
-});
-
-app.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/');
-});
 
 app.get('/test_sql', function(req, res){
-    db.query('SELECT * FROM `test` ', function (error, results, fields) {
+    db.query('SELECT * FROM `test` ', function (error, results) {
         if (error) throw error;
         res.send(results);
     });
 });
-
-
-
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-}
 
 // 404
 app.use(function(req, res, next) {
@@ -104,7 +66,7 @@ app.use(function(req, res, next) {
 });
 
 // Server errors
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

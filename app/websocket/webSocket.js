@@ -46,7 +46,7 @@ module.exports = function (app, socketio) {
         });
 
         socket.on('chat message', function(msg){
-            io.emit('chat message', msg);
+            socket.emit('chat message', msg);
         });
     });
 };
