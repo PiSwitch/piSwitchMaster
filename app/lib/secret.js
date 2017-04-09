@@ -1,3 +1,4 @@
+var fs = require('fs');
 var jsonfile = require('jsonfile');
 var crypto = require('crypto');
 const SECRETS_FILE_PATH = __dirname  + '/../../secrets.json';
@@ -6,7 +7,12 @@ var exports = {};
 var secrets = null;
 
 function load() {
-    secrets = jsonfile.readFileSync(SECRETS_FILE_PATH);
+    if(fs.existsSync(SECRETS_FILE_PATH)) {
+        secrets = jsonfile.readFileSync(SECRETS_FILE_PATH);
+    }
+    else {
+        secrets = {};
+    }
 }
 
 function save() {
