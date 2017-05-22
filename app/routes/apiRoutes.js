@@ -1,8 +1,9 @@
 var express = require('express');
 var apiAuth = require('../lib/apiAuth');
+var compatibility = require('../lib/compatibility');
 var authMiddleware = require('../middlewares/authMiddleware');
 
-module.exports = function (app) {
+module.exports = function () {
 
     var apiRoutes = express.Router();
 
@@ -20,6 +21,18 @@ module.exports = function (app) {
                 success: true,
                 message: 'ok',
                 token: token
+            });
+        });
+    });
+
+
+    apiRoutes.post('/test_setup', function(req, res) {
+        apiAuth.authenticate(req.body.email, req.body.password, function (err, token) {
+            res.json({
+                portalVersion: compatibility.getPortalVersion(),
+                supportedVersions: compatibility.getSupportedVersions(),
+                isCompatible: compatibility.isCompatible(req.body.version),
+                credentialCorrect: !err && token
             });
         });
     });

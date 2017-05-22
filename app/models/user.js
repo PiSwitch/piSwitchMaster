@@ -1,6 +1,7 @@
 var db = require('../lib/sqlPool');
 var bcrypt = require('bcrypt-nodejs');
 var isEmail = require('isemail');
+
 var exports = {};
 module.exports = exports;
 
