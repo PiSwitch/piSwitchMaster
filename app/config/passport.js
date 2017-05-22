@@ -61,7 +61,7 @@ module.exports = function(passport) {
                     return done(null, false, req.flash('loginMessage', 'Wrong password.'));
 
                 return done(null, user);
-            })
+            });
         }
     ));
 };
